@@ -77,7 +77,7 @@ def load_args():
          (Dict): our arguments
     """
     parser = argparse.ArgumentParser(description="Classify and predict digits using the mnist dataset")
-    parser.add_argument('mode', help='the mode to run in: train, model or predict')
+    parser.add_argument('mode', help='the mode to run in: fit, model or predict')
     parser.add_argument('--algo', help='which algorithm to use: RandomForest, KNN')
     return parser.parse_args()
 
