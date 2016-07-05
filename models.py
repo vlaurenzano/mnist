@@ -22,7 +22,7 @@ class PersistentClassifier():
     """
     def __init__(self, classifier_class, **kwargs):
         name = classifier_class.__name__
-        self.hashkey = name + reduce(lambda carry, key: carry + key + "-" + str(kwargs[key]), kwargs, "-")
+        self.hashkey = name + reduce(lambda carry, key: carry + key + "-" + str(kwargs[key]), sorted(kwargs), "-")
         self.classifier_constructor = lambda : classifier_class(**kwargs)
         self.classifier = None
 

@@ -9,6 +9,7 @@ RUN pip install pandas
 RUN pip install scipy
 RUN pip install scikit-learn
 
+WORKDIR /src
 
-ENTRYPOINT ["python", "-u", "/src/main.py"]
+ENTRYPOINT ["python", "-u", "main.py"]
 
