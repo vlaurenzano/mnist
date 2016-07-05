@@ -1,8 +1,35 @@
 # mnist
-Using the MNIST data set with python and sklearn 
+Using the MNIST data set with python and sklearn to classify handwritten digits. 
 
-Configure via config.ini, run via cli. 
+## Configuration
+Configure via config.ini. DEFAULT arguments can be overriden per algorithm. 
 
-Run with argument "fit", "model", or "predict".
+## Run 
+Run by passing argument "fit", "model", or "predict" to main.py or Docker.
+Must run with fit with the same parameters before running predict. 
+"model" will run k-folds validation and print score. 
 
-Must run with fit before predict. 
+```
+usage: main.py [-h] [--algo ALGO] mode
+
+Classify and predict digits using the mnist dataset
+
+positional arguments:
+  mode         the mode to run in: fit, model or predict
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --algo ALGO  which algorithm to use: RandomForest, KNN
+ ``` 
+ 
+## With docker-compose
+
+Install with:
+``` docker-compose build ``
+
+Run with:
+``` docker-compose mnist fit ```
+``` docker-compose mnist predict ```
+
+
+
