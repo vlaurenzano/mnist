@@ -1,35 +1,10 @@
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
 from sklearn import cross_validation
 import argparse
 import configparser
 import models
 
-
-def load_classifier(algo, config):
-    """ Load our classifier
-
-        Initializes our Persistent Classifier with a classifier we explicitly support.
-        Classifier parameters are taken from our config file.
-
-        Args:
-            algo (str): The algorithm we want to use
-            config (dict): A dictionary type object that has the property get and our configs
-        Raises:
-            Exception
-    """
-    if algo == 'RandomForest':
-        n_estimators = int(config.get('n_estimators', 20))
-        n_jobs = int(config.get('n_jobs', 4))
-        return models.PersistentClassifier(RandomForestClassifier,n_estimators=n_estimators, n_jobs=n_jobs)
-
-    elif algo == 'KNN':
-        n_neighbors = int(config.get('n_neighbors', 5))
-        return models.PersistentClassifier(KNeighborsClassifier, n_neighbors=n_neighbors)
-
-    raise 'Improper algorithm value give, see --help'
 
 def fit(classifier, data):
     """ Fits the model
@@ -99,7 +74,7 @@ if __name__ == '__main__':
     if args.algo == None:
         algo = config['DEFAULT']['algo']
 
-    classifier = load_classifier(algo, config[algo])
+    classifier = models.load_classifier(algo, config[algo])
 
     if args.mode == 'fit':
         data = np.loadtxt(config[algo]['training_file'], dtype=np.int16, delimiter=',', skiprows=1)

@@ -1,6 +1,34 @@
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
 from functools import reduce
 import pickle
+
+def load_classifier(algo, config):
+    """ Load our classifier
+
+        Initializes our Persistent Classifier with a classifier we explicitly support.
+        Classifier parameters are taken from our config file.
+
+        Args:
+            algo (str): The algorithm we want to use
+            config (dict): A dictionary type object that has the property get and our configs
+        Raises:
+            Exception
+    """
+    if algo == 'RandomForest':
+        n_estimators = int(config.get('n_estimators', 20))
+        n_jobs = int(config.get('n_jobs', 4))
+        return PersistentClassifier(RandomForestClassifier,n_estimators=n_estimators, n_jobs=n_jobs)
+
+    elif algo == 'KNN':
+        n_neighbors = int(config.get('n_neighbors', 5))
+        return PersistentClassifier(KNeighborsClassifier, n_neighbors=n_neighbors)
+
+    elif algo == 'LogisticRegression':
+        return PersistentClassifier(LogisticRegression)
+
+    raise 'Improper algorithm value give, see --help'
 
 class PersistentClassifier():
     """
@@ -62,3 +90,4 @@ class PersistentClassifier():
             classes(np.array): our classes corresponding to features
         """
         return self.classifier.score(features,classes)
+
