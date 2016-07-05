@@ -25,10 +25,13 @@ optional arguments:
 ## With docker-compose
 
 Install with:
-``` docker-compose build ``
+
+``` docker-compose build ```
 
 Run with:
+
 ``` docker-compose mnist fit ```
+
 ``` docker-compose mnist predict ```
 
 
